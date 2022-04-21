@@ -6,6 +6,8 @@ import android.content.Context
 import android.provider.Settings
 import android.util.SparseIntArray
 
+import com.android.systemui.monet.ColorScheme
+
 import dev.kdrag0n.colorkt.Color
 import dev.kdrag0n.colorkt.cam.Zcam
 import dev.kdrag0n.colorkt.conversion.ConversionGraph.convert
@@ -42,7 +44,7 @@ class WallpaperColorResources {
         // Generate color scheme
         val custom_color = Settings.Secure.getInt(context.contentResolver, "monet_engine_custom_color", 0)
         val color_override = Settings.Secure.getInt(context.contentResolver, "monet_engine_color_override", -1)
-        val seed_color = if (color_override != -1 && custom_color != 0) color_override else wallpaperColors.primaryColor.toArgb()
+        val seed_color = if (color_override != -1 && custom_color != 0) color_override else ColorScheme.getSeedColor(wallpaperColors)
         val colorScheme = DynamicColorScheme(
             targets = targets,
             seedColor = Srgb(seed_color),
